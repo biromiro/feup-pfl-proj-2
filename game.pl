@@ -56,9 +56,10 @@ checkerExists(blue).
 checkerExists(red).
 
 move(GameState, Row/Col-Checker, NewGameState) :- checkerExists(Checker),
+                                                  checker(GameState, Row/Col, empty),
                                                   nth0(Row, GameState, GameStateRow),
                                                   nth0(Row, NewGameState, NewGameStateRow),
-                                                  select(empty, GameStateRow, Checker, NewGameStateRow),
-                                                  nth0(Col, NewGameStateRow, Checker),
                                                   select(GameStateRow, GameState, NewGameStateRow, NewGameState),
+                                                  nth0(Col, NewGameStateRow, Checker),
+                                                  select(empty, GameStateRow, Checker, NewGameStateRow),
                                                   legalMove(NewGameState, Row/Col).
