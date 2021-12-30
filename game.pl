@@ -65,3 +65,8 @@ move(GameState, Row/Col-Checker, NewGameState) :- checkerExists(Checker),
                                                   nth0(Col, NewGameStateRow, Checker),
                                                   select(empty, GameStateRow, Checker, NewGameStateRow),
                                                   legalMove(NewGameState, Row/Col).
+
+% gameOver(+GameState, -winner).
+
+gameOver(GameState, red) :- \+ move(GameState, _Row/_Col-blue, _).
+gameOver(GameState, blue) :- \+ move(GameState, _Row/_Col-red, _).
