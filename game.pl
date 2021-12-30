@@ -38,6 +38,8 @@ noConnections(_, _, []).
 noConnections(GameState, Pos, [H | T]) :- \+ connection(GameState, Pos, H, _),
                                             noConnections(GameState, Pos, T).
 
+noFriendlyConnections(_, _, []).
+
 noFriendlyConnections(GameState, Pos, [H | T]) :- \+ connection(GameState, Pos, H, friendly),
                                                   noFriendlyConnections(GameState, Pos, T).
 
