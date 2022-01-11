@@ -12,6 +12,10 @@ test :-
 side_chars(first, ['\x250F\', '\x2533\', '\x2513\']).
 side_chars(last,  ['\x2517\', '\x253B\', '\x251B\']).
 
+checker_char(empty, ' ').
+checker_char(red, 'X').
+checker_char(blue, 'O').
+
 display_box_edges(0, _, _).
 display_box_edges(N, Mid, Edge) :- N > 0,
                                    NewN is N-1,
@@ -29,7 +33,8 @@ display_edge_line(Size, Side) :- side_chars(Side, [LeftCorner, Mid, RightCorner]
                                  display_intermediate_line(Size, LeftCorner, Mid, RightCorner), nl.
 
 display_checker_line([]).
-display_checker_line([Checker | T]) :- write(' \x25CF\ '),
+display_checker_line([Checker | T]) :- checker_char(Checker, Char),
+                                       format(' ~a ', [Char]),
                                        write('\x2503\'),
                                        display_checker_line(T).
 
