@@ -67,7 +67,16 @@ move(Board-Player, Row/Col, NewBoard-NewPlayer) :- swap_player(Player, NewPlayer
                                                    select(empty, BoardRow, Player, NewBoardRow),   %on this row, boards only diverge on empty->player_checker
                                                    legalMove(NewBoard, Row/Col).                   %connections are ok
 
-% gameOver(+GameState, -Winner).
+valid_moves(GameState, Moves) :- findall(Move, move(GameState, Move, _NewState), Moves).
 
-gameOver(Board-cross, cross) :- \+ move(Board-cross, _, _).
-gameOver(Board-circle, circle) :- \+ move(Board-circle, _, _).
+value(Board-_, Player, Value) :- valid_moves(Board-Player, MyMoves),
+                                 swap_player(Player, OtherPlayer),
+                                 valid_moves(Board-OtherPlayer, TheirMoves),
+                                 length(MyMoves, MyValue),
+                                 length(TheirMoves, TheirValue),
+                                 Value is MyValue-TheirValue.
+
+% game_over(+GameState, -Winner).
+
+game_over(Board-cross, cross) :- \+ move(Board-cross, _, _).
+game_over(Board-circle, circle) :- \+ move(Board-circle, _, _).
