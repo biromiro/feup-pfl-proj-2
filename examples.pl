@@ -1,7 +1,7 @@
 % for experiments
 
-:- consult('logic.pl').
-:- consult('io.pl').
+:- consult('src/logic.pl').
+:- consult('src/io.pl').
 
 example_initial([
     [empty, empty, empty, empty],
@@ -23,4 +23,4 @@ example_final([
     [circle, circle, empty, cross],
     [circle, empty, circle, cross]
     ]-circle). % circle is the winner here, as the only 2 empty squares are surrounded by more than one friendly checker, thus resulting in an illegal move.
-                 even if it were cross's turn, circle would still win, as cross has a valid move on 2/2 - one friendly connection.
+               % even if it were cross's turn, circle would still win, as cross has a valid move on 2/2 - one friendly connection.
