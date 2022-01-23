@@ -41,17 +41,17 @@ Vence o jogador que ficar sem jogadas.
 
 ### Representação interna do estado do jogo
 
-Para este jogo, basta guardar a disposição das peças no tabuleiro e o jogador atual e assim se tem o estado do jogo num dado momento. Deste modo, o GameState é um par Tabuleiro-Jogador, em que Tabuleiro é uma lista de listas de dimensões tamanho x tamanho, em que cada elemento representa um quadrado do tabuleiro, podendo ser `empty`, `circle` ou `cross`, e Jogador é um átomo que indica qual a peça a ser colocada neste turno (`circle` ou `cross`). O jogo pode ser inicializado com o predicado `initial_state(+Size, ?GameState)`, gerando um tabuleiro vazio de dimensões Size x Size e jogador inicial `circle`. Seria simples tornar o jogador inicial flexível também, mas visto que essa adição não adicionaria nenhuma variabilidade para lá da estética, foi decidido não o fazer para preservar a estrutura pedida do predicado. no ficheiro `examples.pl` é possível encontrar exemplos de estados inicial, intermédio e final.
+Para este jogo, basta guardar a disposição das peças no tabuleiro e o jogador atual e assim se tem o estado do jogo num dado momento. Deste modo, o GameState é um par Tabuleiro-Jogador, em que Tabuleiro é uma lista de listas de dimensões tamanho x tamanho, em que cada elemento representa um quadrado do tabuleiro, podendo ser `empty`, `circle` ou `cross`, e Jogador é um átomo que indica qual a peça a ser colocada neste turno (`circle` ou `cross`). O jogo pode ser inicializado com o predicado `initial_state(+Size, ?GameState)`, gerando um tabuleiro vazio de dimensões Size x Size e jogador inicial `circle`. Seria simples tornar o jogador inicial flexível também, mas visto que essa adição não adicionaria nenhuma variabilidade para lá da estética, foi decidido não o fazer para preservar a estrutura pedida do predicado. No ficheiro `examples.pl` é possível encontrar exemplos de estados inicial, intermédio e final.
 
 ### Visualização do estado de jogo
 
-O predicado de visualização do estado do jogo é `display_game(+GameState)`, que aceita um estado de jogo e mostra na consola o estado do tabuleiro nesse momento. Bastante flexível, decompõe a representação nas suas partes constituintes e modulariza de modo a aceitar qualquer tamanho e facilmente se poder trocar os caracteres que são usados para as linhas, colunas e peças.
+O predicado de visualização do estado do jogo é `display_game(+GameState)`, que aceita um estado de jogo e mostra na consola o estado do tabuleiro nesse momento. É bastante flexível, visto que decompõe a representação nas suas partes constituintes e modulariza de modo a aceitar qualquer tamanho e facilmente se poder trocar os caracteres que são usados para as linhas, colunas e peças.
 
 No menu principal, há várias opções disponíveis: ***gamemode***, ***boardsize***, ***game***, ou ***leave***.
 
 - **gamemode** - permite mudar o modo de jogo para cada jogador. opções:
   - **h** - humano, escolhe a jogada por si na consola
-  - **pc-[1/2]** - computador, escolhe a jogada tendo em conta o seu nível de dificuldade (explicado com detalhe mais tarde)
+  - **pc-[1/2]** - computador, escolhe a jogada tendo em conta o seu nível de dificuldade (explicado com detalhe mais abaixo)
 - **boardsize** - permite mudar o tamanho do tabuleiro para qualquer inteiro positivo
 - **game** - começa uma partida com as definições previamente escolhidas
 - **leave** - sai do jogo
@@ -65,7 +65,7 @@ Para definir um movimento no Pathway, importa saber qual a peça a colocar e em 
 No contexto do nosso jogo, a adequada implementação do `move/3` implica a verificação de várias propriedades:
 
 - o jogador a jogar troca entre os dois estados de jogo
-- a jogada é feita num quadrado previamente vazio
+- a jogada é feita num quadrado *in-bounds* previamente vazio
 - os dois tabuleiros são idênticos salvo naquele quadrado
 - aquele quadrado tem agora a peça correta
 - a jogada não viola nenhuma das regras relativas a conexões.
@@ -95,6 +95,6 @@ O trabalho foi concluído com aproveitamento, tendo sido atingidas todas as meta
 
 ## Bibliografia
 
-https://www.swi-prolog.org/
-http://www.marksteeregames.com/Pathway_rules.pdf
-Documentação da UC
+- https://www.swi-prolog.org/
+- http://www.marksteeregames.com/Pathway_rules.pdf
+- Documentação da UC
